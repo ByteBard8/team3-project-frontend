@@ -84,7 +84,7 @@ function DrawerAppBar(props) {
           <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
 
             {navItems.map((item) => (
-              <Button key={item} href={`${item}`} sx={{ color: 'white' }}>
+              <Button key={item} href={`/${item}`} sx={{ color: 'white' }}>
                 {item}
               </Button>
             ))}

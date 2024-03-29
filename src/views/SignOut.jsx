@@ -16,7 +16,7 @@ export default function SignIn() {
           <Button
             color="primary"
             href="/signin"
-            buttonText="Go back to Sign In"
+            buttontext="Go back to Sign In"
             minW="60px"
             maxW="60px"
             />
