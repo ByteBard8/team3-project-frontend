@@ -73,15 +73,18 @@ function DrawerAppBar(props) {
           >
             Silent Library
           </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+          <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
+
             {navItems.map((item) => (
               <Button key={item} sx={{ color: 'white' }}>
                 {item}
               </Button>
             ))}
-             <Button sx={{ color: 'white', flexGrow: 0 }}>
+
+             <Button sx={{ color: 'white', position:'absolute', right: '0', }}>
                 SIGN IN/SIGN UP
               </Button>
+
             <Divider />
 
           </Box>
@@ -94,7 +97,7 @@ function DrawerAppBar(props) {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true, 
           }}
           sx={{
             display: { xs: 'block', sm: 'none' },
