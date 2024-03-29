@@ -9,12 +9,14 @@ import Books from './views/Books.jsx';
 import Home from './views/Home.jsx';
 import Footer from './components/Footer.jsx'
 import SignIn from './views/SignIn.jsx';
+import SignUp from './views/SignUp.jsx';
+
 function App() {
 
   return (
     <Container fixed disableGutters>
     <DrawerAppBar />
-      <SignIn />
+      <SignUp />
       <Footer />
     </Container>
   )
