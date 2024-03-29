@@ -68,9 +68,7 @@ export default function SignIn() {
             minW="60px"
             maxW="60px"
             />
-            <Typography>
-                Go back to Sign in
-            </Typography>
+            <Button variant="text" href="/signin" buttonText="Go back to Sign in" />
         </Stack>
         </div>
       </Container>

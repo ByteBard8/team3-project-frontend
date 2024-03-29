@@ -51,6 +51,7 @@ export default function SignIn() {
             buttonText="Register"
             minW="60px"
             maxW="60px"
+            href="/signup"
             />
             </Stack>
 

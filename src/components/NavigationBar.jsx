@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import PropTypes from 'prop-types';
+import MenuIcon from '@mui/icons-material/Menu';
+import StoreIcon from '@mui/icons-material/Store';
+import { Link } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
+import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
@@ -11,11 +11,9 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-
+import * as React from 'react';
 
 const drawerWidth = 240;
 const navItems = ['Home', 'Books'];
@@ -33,6 +31,7 @@ function DrawerAppBar(props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+      <StoreIcon></StoreIcon>
       <Typography variant="h6" sx={{ my: 2 }}>
         Silent Library
       </Typography>
@@ -41,7 +40,8 @@ function DrawerAppBar(props) {
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
+              {/* <ListItemText primary={item} /> */}
+              <Link href={`/${item}`}>{item}</Link>
             </ListItemButton>
           </ListItem>
         ))}
@@ -66,6 +66,7 @@ function DrawerAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
+          <StoreIcon></StoreIcon>
           <Typography
             variant="h6"
             component="div"
@@ -76,12 +77,12 @@ function DrawerAppBar(props) {
           <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
 
             {navItems.map((item) => (
-              <Button key={item} sx={{ color: 'white' }}>
+              <Button key={item} href={`${item}`} sx={{ color: 'white' }}>
                 {item}
               </Button>
             ))}
 
-             <Button sx={{ color: 'white', position:'absolute', right: '0', }}>
+             <Button href="/signin" sx={{ color: 'white', position:'absolute', right: '0', }}>
                 SIGN IN/SIGN UP
               </Button>
 
