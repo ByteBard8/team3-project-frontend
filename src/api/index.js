@@ -1,4 +1,4 @@
-const URL = 'http://localhost:3000'
+const URL = 'http://localhost:5002'
 async function signInAPI(email, password) {
     try {
       console.log(`${URL}/auth/signin`)
