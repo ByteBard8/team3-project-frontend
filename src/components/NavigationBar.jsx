@@ -22,6 +22,7 @@ const navItems = ['Home', 'Books'];
 
 
 function DrawerAppBar(props) {
+  const token = localStorage.getItem('token');
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -40,13 +41,19 @@ function DrawerAppBar(props) {
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
-              {/* <ListItemText primary={item} /> */}
               <Link href={`/${item}`}>{item}</Link>
             </ListItemButton>
           </ListItem>
         ))}
       </List>
       <Divider />
+      {token ? 
+            (<Button href="/signout" sx={{ color: 'white', position:'absolute', right: '0', }}>Sign Out</Button>) 
+            :
+            <Button href="/signin" sx={{ color: 'white', position:'absolute', right: '0', }}>
+                SIGN IN/SIGN UP
+              </Button>
+              }
     </Box>
   );
 
@@ -81,10 +88,14 @@ function DrawerAppBar(props) {
                 {item}
               </Button>
             ))}
-
-             <Button href="/signin" sx={{ color: 'white', position:'absolute', right: '0', }}>
+            {token ? 
+            (<Button href="/signout" sx={{ color: 'white', position:'absolute', right: '0', }}>Sign Out</Button>) 
+            :
+            <Button href="/signin" sx={{ color: 'white', position:'absolute', right: '0', }}>
                 SIGN IN/SIGN UP
               </Button>
+              }
+           
 
             <Divider />
 

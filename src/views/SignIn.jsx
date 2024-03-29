@@ -1,16 +1,26 @@
 import React, { useState } from 'react';
 import { TextField, Container, Typography,Stack } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import Button from "../components/Button.jsx"
-
+import signInAPI from "../api/index.js"
 
 export default function SignIn() {
-
+  const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const handleSignIn = async () => {
+      try {
+        const response = await signInAPI(email, password);
+        const { token } = response;
+
+        localStorage.setItem('token', token);
   
-    const handleSignIn = () => {
-      console.log('Email:', email);
-      console.log('Password:', password);
+        navigate('/Home');
+      } catch (error) {
+        console.log(error)
+        setError('Invalid email or password');
+      }
     };
     return (
         <Container component="main" maxWidth="xs">
@@ -36,7 +46,11 @@ export default function SignIn() {
             required
             color="primary"
           />
-
+          {error && (
+          <Typography variant="body2" color="error">
+            {error}
+          </Typography>
+        )}
           <Button
             color="primary"
             onClick={handleSignIn}
