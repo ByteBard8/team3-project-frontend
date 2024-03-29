@@ -15,9 +15,9 @@ async function signInAPI(email, password) {
       }
   
       const data = await response.json();
-      return data; // Assuming your API returns some data upon successful login
+      return data; 
     } catch (error) {
-      throw new Error('Failed to sign in'); // Handle other errors, e.g., network failure
+      throw new Error('Failed to sign in');
     }
   };
 
