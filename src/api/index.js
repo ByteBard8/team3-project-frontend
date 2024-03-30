@@ -1,4 +1,5 @@
-const URL = 'http://localhost:3000'
+import {SERVERURL} from '../helpers/consts.js'
+const URL = SERVERURL;
 async function signInAPI(email, password) {
     try {
       console.log(`${URL}/auth/signin`)
@@ -60,4 +61,26 @@ async function getBookByIDAPI(bookId) {
     throw new Error('Network error')
   }
 }
-export {signInAPI, getBookByIDAPI, getAllBooks};
+
+
+async function searchBooks(searchStr) {
+  const token = localStorage.getItem('token');
+  try {
+    const response = await fetch(`${URL}/api/books/additional/search?keyword=${searchStr}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    })
+    if (!response.ok) {
+      throw new Error('Response not ok');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error('Network error')
+  }
+}
+
+export {signInAPI, getBookByIDAPI, getAllBooks,searchBooks};
