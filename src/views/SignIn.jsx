@@ -10,8 +10,9 @@ export default function SignIn() {
     const handleSignIn = async () => {
       try {
         const response = await signInAPI(email, password);
-        const { token } = response;
+        const { token, user } = response;
         localStorage.setItem('token', token);
+        localStorage.setItem('userId', user._id);
         window.location.href = '/Home';
       } catch (error) {
         console.log(error)

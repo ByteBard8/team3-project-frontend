@@ -60,4 +60,26 @@ async function getBookByIDAPI(bookId) {
     throw new Error('Network error')
   }
 }
-export {signInAPI, getBookByIDAPI, getAllBooks};
+
+async function borrowBookAPI(bookId) {
+  const token = localStorage.getItem('token');
+  const borrowerId = localStorage.getItem('userId');
+  try {
+    const response = await fetch(`${URL}/api/borrowings/borrow`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({bookId, borrowerId})
+    })
+    if (!response.ok) {
+      throw new Error('Response not ok');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error('Network error')
+  }
+}
+export {signInAPI, getBookByIDAPI, getAllBooks, borrowBookAPI};

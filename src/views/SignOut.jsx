@@ -17,8 +17,8 @@ export default function SignIn() {
             color="primary"
             href="/signin"
             buttontext="Go back to Sign In"
-            minwidth="60px"
-            maxwidth="60px"
+            minwidth="360px"
+            maxwidth="360px"
             />
         </Stack>
         </div>
