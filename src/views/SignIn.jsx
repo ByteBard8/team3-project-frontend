@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Container, Typography,Stack } from '@mui/material';
 import Button from "../components/Button.jsx"
-import signInAPI from "../api/index.js"
+import {signInAPI}  from "../api/index.js"
 
 export default function SignIn() {
     const [email, setEmail] = useState('');
@@ -50,7 +50,7 @@ export default function SignIn() {
           <Button
             color="primary"
             onClick={handleSignIn}
-            buttonText="Sign In"
+            buttontext="Sign In"
             minW="60px"
             maxW="60px"
             />
@@ -58,7 +58,7 @@ export default function SignIn() {
         Don't have an account yet?
         </Typography>
         <Button
-            buttonText="Register"
+            buttontext="Register"
             minW="60px"
             maxW="60px"
             href="/signup"

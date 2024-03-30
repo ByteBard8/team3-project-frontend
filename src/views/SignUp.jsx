@@ -64,11 +64,11 @@ export default function SignIn() {
           <Button
             color="primary"
             onClick={handleSignUp}
-            buttonText="Sign up"
+            buttontext="Sign up"
             minW="60px"
             maxW="60px"
             />
-            <Button variant="text" href="/signin" buttonText="Go back to Sign in" />
+            <Button variant="text" href="/signin" buttontext="Go back to Sign in" />
         </Stack>
         </div>
       </Container>

@@ -1,10 +1,42 @@
+import {useState, useEffect} from "react";
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from "../components/Button.jsx";
-
-
+import { getBookByIDAPI } from '../api/index.js';
+import { useParams } from 'react-router-dom';
 export default function Book() {
+  const {id} = useParams();
+  const [itemData, setItemData] = useState({});
+  const [isBorrowed, setBorrowed] = useState(false);
+  const [error, setError] = useState('');
+  const handleBorrow = async () => {
+    try {
+      console.log('borrow success')
+      setBorrowed(true);
+    } catch (error) {
+      console.log(error)
+      setError('Unable to borrow');
+    }
+  };
+
+
+  useEffect(() => {
+   const fetchData = async () => {
+      const data = await getBookByIDAPI(id);
+      setItemData(data);
+    }
+    const fetchBorrowed = async () => {
+      //need to add API here for checking if this book is actively borrowed
+      // const data = await getBorrowed(id);
+      
+      setBorrowed(false);
+    }
+    fetchData();
+    fetchBorrowed();
+  }, [id]);
+
+  if (itemData._id) {
     return (
         <>
         <Typography variant="h2" sx={{ mb: 2 }} align="left">
@@ -15,23 +47,35 @@ export default function Book() {
     <Stack direction="column" spacing={6}>
       <Box>
       <Typography variant="h6" sx={{ mb: 2 }} align="left">
-        Les Miserables
+        {itemData.title}
     </Typography>
     <Typography align="left">
-    Hugo, Victor, 1802-1885, author.</Typography>
+    {itemData.author}</Typography>
     <Typography align="left">
-Contributors: Wilbour, Charles E. (Charles Edwin),
+      {itemData.ISBN}
 </Typography>
 <Typography align="left"> 
-1833-1896,Book, 1140 pages
+{new Date(itemData.publication_year).toDateString()}
+    </Typography>
+    <Typography align="left"> 
+{itemData.genre}
+    </Typography>
+    <Typography align="left"> 
+{isBorrowed ? 0 : itemData.quantity_available | 0} copies available
     </Typography>
       </Box>
-    <Button buttonText="Summary" />
-    <Button buttonText="Review" />
-     <Button buttonText="Borrow Now" />
-     <Button buttonText="Add to Favorites" />
+    <Button buttontext="Summary" />
+    <Button buttontext="Review" />
+     {isBorrowed ? (<Button disabled buttontext="Not available for Borrow" />) : (<Button onClick={handleBorrow} buttontext="Borrow Now" />)}
+     <Button buttontext="Add to Favorites" />
     </Stack>
     </Stack>
     </>
     )
+  } else {
+    return (<>
+      <Typography variant="h2" sx={{ mb: 2 }} align="left">
+      Book
+  </Typography></>)
+  }
 }
