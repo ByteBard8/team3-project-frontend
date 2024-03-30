@@ -9,7 +9,7 @@ export default function Footer() {
           position:'absolute',
           bottom: '0',
           minHeight: '20px',
-          minWidth: '100vh',
+          minwidth: '100vh',
           backgroundColor: 'ash',
           color: 'white',
           border: '1px solid gray',

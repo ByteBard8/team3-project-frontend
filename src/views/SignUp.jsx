@@ -13,7 +13,7 @@ export default function SignIn() {
       console.log('Password:', password);
     };
     return (
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxwidth="xs">
         <div>
         <Typography variant="h5" sx={{ mb: 2 }} align="left">
         Sign Up
@@ -65,8 +65,8 @@ export default function SignIn() {
             color="primary"
             onClick={handleSignUp}
             buttontext="Sign up"
-            minW="60px"
-            maxW="60px"
+            minwidth="60px"
+            maxwidth="60px"
             />
             <Button variant="text" href="/signin" buttontext="Go back to Sign in" />
         </Stack>

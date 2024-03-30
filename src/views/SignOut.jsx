@@ -7,7 +7,7 @@ export default function SignIn() {
     localStorage.setItem('token', "");
 
     return (
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxwidth="xs">
         <div>
         <Typography variant="h5" sx={{ mb: 2 }} align="left">
         Signed out successfully!
@@ -17,8 +17,8 @@ export default function SignIn() {
             color="primary"
             href="/signin"
             buttontext="Go back to Sign In"
-            minW="60px"
-            maxW="60px"
+            minwidth="60px"
+            maxwidth="60px"
             />
         </Stack>
         </div>
