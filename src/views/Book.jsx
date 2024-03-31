@@ -5,7 +5,7 @@ import Stack from '@mui/material/Stack';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
 import Button from "../components/Button.jsx";
-import { getBookByIDAPI, borrowBookAPI } from '../api/index.js';
+import { getBookByIDAPI, borrowBookAPI, returnBookAPI } from '../api/index.js';
 import { useParams } from 'react-router-dom';
 export default function Book() {
   const {id} = useParams();
@@ -17,7 +17,7 @@ export default function Book() {
     try {
       const res = await borrowBookAPI(id);
       if (res.success) {
-        showAlert(true);
+        showAlert("Congratulations. You are now borrowing this book.");
         setBorrowed(true);
         setError('');
       }  else {
@@ -29,11 +29,27 @@ export default function Book() {
     }
   };
 
+  const handleReturn = async () => {
+    try {
+      const res = await returnBookAPI(id);
+      if (res.success) {
+        showAlert("Congratulations. You successfully returned this book.");
+        setBorrowed(false);
+        setError('');
+      }  else {
+        setError('Unable to return at this time');
+      } 
+    } catch (error) {
+      console.log(error)
+      setError('Unable to return');
+    }
+  };
 
   useEffect(() => {
    const fetchData = async () => {
       const data = await getBookByIDAPI(id);
       setItemData(data);
+
       data.available ? setBorrowed(false) : setBorrowed(true);
     }
     fetchData();
@@ -46,7 +62,7 @@ export default function Book() {
         Book
     </Typography>
     {alertShown ? (<Alert sx={{margin: 2}} icon={<CheckIcon fontSize="inherit" />} severity="success" onClose={() => {showAlert(false)}}>
-      Congratulations. You are now borrowing this book.
+      {alertShown}
     </Alert>) : null}
     <Stack direction="row" spacing={20}>
     <img src='./src/assets/react.svg' height="326" width="338"/>
@@ -72,8 +88,9 @@ export default function Book() {
       </Box>
     <Button buttontext="Summary" />
     <Button buttontext="Review" />
-     {itemData.available ? (<Button onClick={handleBorrow} buttontext="Borrow Now" />) : (<Button disabled buttontext="Not available for Borrow" />)}
+    {(itemData.latestBorrowing.borrowerId === localStorage.getItem('userId') && isBorrowed) ? (<Button onClick={handleReturn} buttontext="Return book" />) : null } 
      {error}
+     {itemData.available ? (<Button onClick={handleBorrow} buttontext="Borrow Now" />) : (<Button disabled buttontext="Not available for Borrow" />)}
      <Button buttontext="Add to Favorites" />
     </Stack>
     </Stack>
