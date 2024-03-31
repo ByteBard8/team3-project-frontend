@@ -42,6 +42,13 @@ async function signInAPI(email, password) {
     }
   }
 
+  async function deleteBook(bookid){
+
+  }
+  async function updateBook(){
+
+  }
+
 async function getBookByIDAPI(bookId) {
   const token = localStorage.getItem('token');
   try {
@@ -153,5 +160,7 @@ export {signInAPI,
    borrowBookAPI, 
    searchBooks,
    contactUs,
-   returnBookAPI
+   returnBookAPI,
+   deleteBook,
+   updateBook
   };
