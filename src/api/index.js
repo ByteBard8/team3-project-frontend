@@ -104,4 +104,33 @@ async function searchBooks(searchStr) {
   }
 }
 
-export {signInAPI, getBookByIDAPI, getAllBooks, borrowBookAPI, searchBooks};
+
+async function contactUs(email, name, message) {
+  try {
+    
+    const response = await fetch(`${URL}/api/inquiries`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, name, message }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Invalid credentials');
+    }
+
+    const data = await response.json();
+    return data; 
+  } catch (error) {
+    throw new Error('Failed to sign in');
+  }
+};
+
+export {signInAPI,
+   getBookByIDAPI, 
+   getAllBooks, 
+   borrowBookAPI, 
+   searchBooks,
+   contactUs
+  };
