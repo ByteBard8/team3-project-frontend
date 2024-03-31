@@ -23,14 +23,14 @@ export default function Book() {
     <Box sx={{ display: 'flex', flexDirection: 'column-reverse' }}>
 
     <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '50px', }}>
-    <Button buttontext="PSYCHOLOGY"  minW="289px" maxW="289px"/>
-    <Button buttontext="SCIENCE"  minW="289px" maxW="289px"/>
-     <Button buttontext="POLITICS"  minW="289px" maxW="289px"/>
+    <Button buttontext="PSYCHOLOGY"  minwidth="289px" maxwidth="289px"/>
+    <Button buttontext="SCIENCE"  minwidth="289px" maxwidth="289px"/>
+     <Button buttontext="POLITICS"  minwidth="289px" maxwidth="289px"/>
     </Box>
     <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '50px', }}>
-     <Button buttontext="NON-FICTION" minW="289px" maxW="289px" />
-     <Button buttontext="SELF-HELP"  minW="289px" maxW="289px"/>
-     <Button buttontext="SOCIOLOGY"  minW="289px" maxW="289px"/>
+     <Button buttontext="NON-FICTION" minwidth="289px" maxwidth="289px" />
+     <Button buttontext="SELF-HELP"  minwidth="289px" maxwidth="289px"/>
+     <Button buttontext="SOCIOLOGY"  minwidth="289px" maxwidth="289px"/>
     </Box>
     </Box>
     </Container>

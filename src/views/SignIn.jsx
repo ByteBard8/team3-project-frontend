@@ -10,8 +10,9 @@ export default function SignIn() {
     const handleSignIn = async () => {
       try {
         const response = await signInAPI(email, password);
-        const { token } = response;
+        const { token, user } = response;
         localStorage.setItem('token', token);
+        localStorage.setItem('userId', user._id);
         window.location.href = '/Home';
       } catch (error) {
         console.log(error)
@@ -19,12 +20,12 @@ export default function SignIn() {
       }
     };
     return (
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxwidth="xs">
         <div>
         <Typography variant="h5" sx={{ mb: 2 }} align="left">
         Sign In
     </Typography>
-    <Stack spacing={1}>
+    <Stack spacing={1} sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '50px', }}>
           <TextField
             variant="outlined"
             label="Email"
@@ -51,16 +52,16 @@ export default function SignIn() {
             color="primary"
             onClick={handleSignIn}
             buttontext="Sign In"
-            minW="60px"
-            maxW="60px"
+            minwidth="90px"
+            maxwidth="90px"
             />
         <Typography variant="body" sx={{ mb: 2, paddingTop: '40px' }} align="center">
         Don't have an account yet?
         </Typography>
         <Button
             buttontext="Register"
-            minW="60px"
-            maxW="60px"
+            minwidth="90px"
+            maxwidth="90px"
             href="/signup"
             />
             </Stack>
