@@ -14,7 +14,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-
+import auth from '../helpers/auth.js'
 const drawerWidth = 240;
 const navItems = [
   {title: 'Home', link: 'home'},
@@ -28,11 +28,13 @@ function DrawerAppBar(props) {
   const token = localStorage.getItem('token');
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  const [isLoggedIn, setIsLoggedIn] = React.useState();
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-
+  React.useEffect(() => {
+    setIsLoggedIn(auth.isAuthenticated()); 
+   }, [isLoggedIn]);
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <StoreIcon></StoreIcon>
@@ -40,7 +42,7 @@ function DrawerAppBar(props) {
         Silent Library
       </Typography>
       <Divider />
-      <List>
+      {isLoggedIn ? (<><List>
         {navItems.map((item, o) => (
           <ListItem key={o} disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
@@ -49,7 +51,8 @@ function DrawerAppBar(props) {
           </ListItem>
         ))}
       </List>
-      <Divider />
+      <Divider /></>) : null}
+
       {token ? 
             (<Button href="/signout" sx={{ color: 'white', position:'absolute', right: '0', }}>Sign Out</Button>) 
             :
@@ -84,8 +87,7 @@ function DrawerAppBar(props) {
           >
             Silent Library
           </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
-
+          {isLoggedIn ? (<Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
             {navItems.map((item, i) => (
               <Button key={`link-${item.link}-${i}`} href={`/${item.link}`} sx={{ color: 'white' }}>
                 {item.title}
@@ -98,11 +100,8 @@ function DrawerAppBar(props) {
                 SIGN IN/SIGN UP
               </Button>
               }
-           
-
             <Divider />
-
-          </Box>
+          </Box>) : null}
         </Toolbar>
       </AppBar>
       <nav>
