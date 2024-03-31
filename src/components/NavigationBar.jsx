@@ -16,9 +16,12 @@ import Typography from '@mui/material/Typography';
 import * as React from 'react';
 
 const drawerWidth = 240;
-const navItems = ['Home', 'Books'];
-
-
+const navItems = [
+  {title: 'Home', link: 'home'},
+  {title:'Books', link: 'books'},
+  {title: 'About Us', link: 'aboutus'},
+  {title: 'Contact Us', link: 'contact'},
+];
 
 
 function DrawerAppBar(props) {
@@ -38,10 +41,10 @@ function DrawerAppBar(props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
+        {navItems.map((item, o) => (
+          <ListItem key={o} disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
-              <Link href={`/${item}`}>{item}</Link>
+              <Link href={`/${item.link}`}>{item.title}</Link>
             </ListItemButton>
           </ListItem>
         ))}
@@ -83,9 +86,9 @@ function DrawerAppBar(props) {
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
 
-            {navItems.map((item) => (
-              <Button key={item} href={`/${item}`} sx={{ color: 'white' }}>
-                {item}
+            {navItems.map((item, i) => (
+              <Button key={`link-${item.link}-${i}`} href={`/${item.link}`} sx={{ color: 'white' }}>
+                {item.title}
               </Button>
             ))}
             {token ? 
