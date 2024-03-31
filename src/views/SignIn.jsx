@@ -13,6 +13,7 @@ export default function SignIn() {
         const { token, user } = response;
         localStorage.setItem('token', token);
         localStorage.setItem('userId', user._id);
+        localStorage.setItem('role', user.role);
         window.location.href = '/Home';
       } catch (error) {
         console.log(error)
