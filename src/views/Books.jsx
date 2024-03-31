@@ -29,11 +29,11 @@ export default function Books() {
 
         <ImageList cols={5} gap={60}>
       {itemData.map((item) => (
-        <ImageListItem component="a" key={item.img} cols={1} rows={1} href={`/book/${item._id}`}>
+        <ImageListItem component="a" key={`img-${item._id}`} cols={1} rows={1} href={`/book/${item._id}`}>
           <img
             key={item.img}
             srcSet={item.img}
-            src={item.img || './src/assets/react.svg'}
+            src={item.bookImageUrl || './src/assets/react.svg'}
             alt={item.title}
             sx={{ width: 140, height: 170 }}
             loading="lazy"
