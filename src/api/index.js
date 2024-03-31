@@ -1,4 +1,5 @@
-const URL = 'http://localhost:3000'
+import {SERVERURL} from '../helpers/consts.js'
+const URL = SERVERURL;
 async function signInAPI(email, password) {
     try {
       console.log(`${URL}/auth/signin`)
@@ -67,11 +68,31 @@ async function borrowBookAPI(bookId) {
   try {
     const response = await fetch(`${URL}/api/borrowings/borrow`, {
       method: 'POST',
-      headers: {
+       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify({bookId, borrowerId})
+       body: JSON.stringify({bookId, borrowerId})
+        })
+    if (!response.ok) {
+      throw new Error('Response not ok');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error('Network error')
+  }
+}
+
+async function searchBooks(searchStr) {
+  const token = localStorage.getItem('token');
+  try {
+    const response = await fetch(`${URL}/api/books/additional/search?keyword=${searchStr}`, {
+      method: 'GET',
+        headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
     })
     if (!response.ok) {
       throw new Error('Response not ok');
@@ -82,4 +103,5 @@ async function borrowBookAPI(bookId) {
     throw new Error('Network error')
   }
 }
-export {signInAPI, getBookByIDAPI, getAllBooks, borrowBookAPI};
+
+export {signInAPI, getBookByIDAPI, getAllBooks, borrowBookAPI, searchBooks};

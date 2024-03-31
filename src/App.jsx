@@ -5,6 +5,7 @@ import Footer from './components/Footer.jsx';
 import MainRouter from './components/MainRouter.jsx';
 import DrawerAppBar from './components/NavigationBar.jsx';
 function App() {
+  const [count, setCount] = useState(0)
 
   return (
     <Router>
