@@ -87,7 +87,7 @@ async function borrowBookAPI(bookId) {
 async function returnBookAPI(bookId) {
   const token = localStorage.getItem('token');
   try {
-    const response = await fetch(`${URL}/api/borrowings/return/`, {
+    const response = await fetch(`${URL}/api/borrowings/return`, {
       method: 'PUT',
        headers: {
         'Content-Type': 'application/json',
@@ -125,4 +125,11 @@ async function searchBooks(searchStr) {
   }
 }
 
-export {signInAPI, getBookByIDAPI, getAllBooks, borrowBookAPI, searchBooks, returnBookAPI};
+export {
+  signInAPI, 
+  getBookByIDAPI, 
+  getAllBooks,
+  borrowBookAPI, 
+  searchBooks, 
+  returnBookAPI
+  };
