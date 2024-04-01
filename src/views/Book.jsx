@@ -65,7 +65,7 @@ export default function Book() {
       {alertShown}
     </Alert>) : null}
     <Stack direction="row" spacing={20}>
-    <img src='./src/assets/react.svg' height="326" width="338"/>
+    <img src={itemData.bookImageUrl} height="326" width="338"/>
     <Stack direction="column" spacing={6}>
       <Box>
       <Typography variant="h6" sx={{ mb: 2 }} align="left">
