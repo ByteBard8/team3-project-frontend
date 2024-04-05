@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
+import Chip from "@mui/material/Chip";
 import Button from "../components/Button.jsx";
 import { getBookByIDAPI, borrowBookAPI, returnBookAPI } from '../api/index.js';
 import { useParams } from 'react-router-dom';
@@ -79,16 +80,14 @@ export default function Book() {
 <Typography align="left"> 
 {new Date(itemData.publication_year).toDateString()}
     </Typography>
-    <Typography align="left"> 
-{itemData.genre}
-    </Typography>
+    <Chip label={itemData.genre} color="success" />
     {/* <Typography align="left"> 
 {itemData.available ? 0 : itemData.quantity_available | 0} copies available
     </Typography> */}
       </Box>
     <Button buttontext="Summary" />
     <Button buttontext="Review" />
-    {(itemData.latestBorrowing.borrowerId === localStorage.getItem('userId') && isBorrowed) ? (<Button onClick={handleReturn} buttontext="Return book" />) : null } 
+    {(isBorrowed && itemData.latestBorrowing) ? (<Button onClick={handleReturn} buttontext="Return book" />) && localStorage.getItem('userId') === itemData.latestBorrowing.borrowerId: null } 
      {error}
      {itemData.available ? (<Button onClick={handleBorrow} buttontext="Borrow Now" />) : (<Button disabled buttontext="Not available for Borrow" />)}
      <Button buttontext="Add to Favorites" />
