@@ -9,6 +9,7 @@ import SignOut from '../views/SignOut.jsx';
 import SearchResults from '../views/SearchResults.jsx';
 import AboutUs from '../views/AboutUs.jsx';
 import ContactUs from '../views/ContactUs.jsx';
+import Borrowings from '../views/Borrowings.jsx';
 
 /**
  * Admin Components
@@ -33,6 +34,7 @@ return (
 			<Route path="/search" exact element={<SearchResults />} />
 			<Route path="/aboutus" exact element={<AboutUs />} />
 			<Route path="/contact" exact element={<ContactUs />} />
+			<Route path="/borrowings" exact element={<Borrowings />} />
 			<Route
 				path="/admin/books"
 					element={
