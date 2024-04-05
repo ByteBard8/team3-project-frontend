@@ -154,6 +154,25 @@ async function contactUs(email, name, message) {
   }
 };
 
+async function getAllBorrowings() {
+  const token = localStorage.getItem('token');
+  try {
+    const response = await fetch(`${URL}/api/borrowings`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      if (!response.ok) {
+    throw new Error('Response not ok');
+  }
+  const data = await response.json();
+  return data; 
+} catch (error) {
+  throw new Error('Network error');
+}
+};
 export {signInAPI,
    getBookByIDAPI, 
    getAllBooks, 
@@ -162,5 +181,6 @@ export {signInAPI,
    contactUs,
    returnBookAPI,
    deleteBook,
-   updateBook
+   updateBook,
+   getAllBorrowings
   };

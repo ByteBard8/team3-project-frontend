@@ -21,6 +21,7 @@ const navItems = [
   {title:'Books', link: 'books'},
   {title: 'About Us', link: 'aboutus'},
   {title: 'Contact Us', link: 'contact'},
+  {title: 'My Borrowings', link: 'borrowings'}
 ];
 
 
