@@ -7,6 +7,7 @@ import SignIn from '../views/SignIn.jsx';
 import SignUp from '../views/SignUp.jsx';
 import SignOut from '../views/SignOut.jsx';
 import SearchResults from '../views/SearchResults.jsx';
+import BooksByGenre from '../views/BooksByGenre.jsx';
 import AboutUs from '../views/AboutUs.jsx';
 import ContactUs from '../views/ContactUs.jsx';
 import Borrowings from '../views/Borrowings.jsx';
@@ -32,6 +33,7 @@ return (
 			<Route path="/books" exact element={<Books />} />
 			<Route path="/Book/:id" exact element={<Book />} />
 			<Route path="/search" exact element={<SearchResults />} />
+			<Route path="/genre" exact element={<BooksByGenre />} />
 			<Route path="/aboutus" exact element={<AboutUs />} />
 			<Route path="/contact" exact element={<ContactUs />} />
 			<Route path="/borrowings" exact element={<Borrowings />} />
