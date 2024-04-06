@@ -3,19 +3,32 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from "../components/Button.jsx";
 import Container from "@mui/material/Container";
+import { getRandomBooks } from "../api/index.js";
+import React, {useState, useEffect} from 'react';
 
 export default function Book() {
+    const [itemData, setItemData] = useState([]);
+    useEffect(() => {
+     const fetchData = async () => {
+        const data = await getRandomBooks();
+        setItemData(data);
+      }
+      fetchData();
+    }, []);
     return (
         <Container fixed>
     <Typography variant="h5" sx={{ mb: 2 }} align="left">
         New & Trending
     </Typography>
     <Stack direction="row" spacing={20} sx={{ overflow: 'auto' }}>
-    <img src='./src/assets/react.svg' height="167" width="140"/>
-    <img src='./src/assets/react.svg' height="167" width="140"/>
-    <img src='./src/assets/react.svg' height="167" width="140"/>
-    <img src='./src/assets/react.svg' height="167" width="140"/>
-    <img src='./src/assets/react.svg' height="167" width="140"/>
+        {itemData.map((item) => (
+            <a href={`/book/${item._id}`}>
+                <img src={item.bookImageUrl}
+                height="167"
+                width="140" 
+                />
+            </a>
+        ))}
     </Stack>
     <Typography variant="h5" sx={{ mb: 2, marginTop: 10 }} align="left">
         Genres
