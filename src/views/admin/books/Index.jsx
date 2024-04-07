@@ -37,8 +37,18 @@ const BookAdminIndex = () => {
     setOpen(false); // Close the modal after deletion
   };
 
+  const handleAddEvent = () => {
+    window.location.href = `/admin/books/add`;
+  };
+
+
   return (
 	<>
+    <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem' }}>
+      <Button onClick={handleAddEvent} variant="contained" color="primary">
+        Add New Book
+      </Button>
+    </div>
     <TableContainer component={Paper}>
       <Table>
         <TableHead>
@@ -59,7 +69,7 @@ const BookAdminIndex = () => {
                 <Button component={Link} to={`/books/${book._id}`} variant="outlined" color="primary">
                   View
                 </Button>
-                <Button component={Link} to={`/books/edit/${book._id}`} variant="outlined" color="secondary">
+                <Button component={Link} to={`/admin/books/edit/${book._id}`} variant="outlined" color="secondary">
                   Edit
                 </Button>
                 <Button onClick={() => handleOpen(book._id)} variant="outlined" color="error">
