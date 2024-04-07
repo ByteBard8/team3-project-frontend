@@ -18,6 +18,7 @@ import Borrowings from '../views/Borrowings.jsx';
 import AdminRoute from './AdminRoute.jsx';
 import BooksIndex from '../views/admin/books/Index.jsx';
 import AddBook from '../views/admin/books/AddBook.jsx';
+import EditBookForm from '../views/admin/books/EditBook.jsx';
 
 function MainRouter() {
 
@@ -51,6 +52,15 @@ return (
 					element={
 						<AdminRoute>
 							<AddBook />
+						</AdminRoute>
+					}
+				/>
+			<Route
+				exact
+				path="/admin/books/edit/:bookId"
+					element={
+						<AdminRoute>
+							<EditBookForm />
 						</AdminRoute>
 					}
 				/>

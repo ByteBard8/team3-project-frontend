@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, Grid, MenuItem } from '@mui/material';
-import { addBook } from '../../../api/admin';
+import { editBook } from '../../../api/admin';
+import { getBookByIDAPI } from '../../../api/index'; // Import getBookByIDAPI
+import { useParams } from 'react-router-dom'; // Import useParams
 
-const genres = ['SOCIOLOGY', 'SELF-HELP', 'NON-FICTION', 'POLITICS', 'SCIENCE', 'PSYCHOLOGY'];
+const genres = ['SOCIOLOGY', 'SELF-HELP', 'NON-FICTION', 'POLITICS', 'SCIENCE', 'PSYCHOLOGY', 'Fitness'];
 
-const AddBookForm = () => {
+const EditBookForm = () => {
   const [formData, setFormData] = useState({
     title: '',
     author: '',
@@ -15,6 +17,22 @@ const AddBookForm = () => {
     bookImageUrl: ''
   });
 
+  const { bookId } = useParams(); // Get bookId from URL params
+
+  useEffect(() => {
+    const fetchBook = async () => {
+      try {
+        const bookData = await getBookByIDAPI(bookId); 
+        setFormData(bookData); 
+      } catch (error) {
+        console.error('Error fetching book:', error.message);
+        alert('Failed to fetch book details. Please try again.');
+      }
+    };
+
+    fetchBook();
+  }, [bookId]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -23,21 +41,11 @@ const AddBookForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await addBook(formData);
-      // Reset form after successful submission
-      setFormData({
-        title: '',
-        author: '',
-        ISBN: '',
-        genre: '',
-        publication_year: '',
-        quantity_available: '',
-        bookImageUrl: ''
-      });
-      alert('Book added successfully!');
+      await editBook(formData);
+      alert('Book updated successfully!');
     } catch (error) {
-      console.error('Error adding book:', error.message);
-      alert('Failed to add book. Please try again.');
+      console.error('Error editing book:', error.message);
+      alert('Failed to edit book. Please try again.');
     }
   };
 
@@ -120,18 +128,17 @@ const AddBookForm = () => {
           />
         </Grid>
       </Grid>
-
-      <Grid item xs={12} sx={{ marginTop: '1rem' }}>
-        <Button type="submit" variant="contained" color="primary">
-          Add Book
-        </Button>
-      <Button onClick={handleBack}
-      variant="contained" color="warning">
-          Back
-        </Button>
+	  <Grid item xs={12} sx={{ marginTop: '1rem' }}>
+	  <Button type="submit" variant="contained" color="primary">
+        Update Book
+      </Button>
+	  <Button onClick={handleBack}
+	  variant="contained" color="warning">
+        Back
+      </Button>
 	  </Grid>
     </form>
   );
 };
 
-export default AddBookForm;
+export default EditBookForm;
