@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Container, Typography, Stack } from '@mui/material';
 import Button from "../components/Button.jsx";
+import {signUp}  from "../api/index.js"
 
 export default function SignUp() {
     const [formData, setFormData] = useState({
@@ -15,18 +16,21 @@ export default function SignUp() {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSignUp = () => {
+    const handleSignUp = async () => {
         // Create a JSON object from the form data
         const userData = {
             email: formData.email,
             firstName: formData.firstName,
             lastName: formData.lastName,
             password: formData.password,
-            confirmPassword: formData.confirmPassword
+            confirmPassword: formData.confirmPassword,
+            role: 'user'
         };
 
-        // Now you can send `userData` to your backend API
-        console.log('User Data:', userData);
+        const response = await signUp(userData);
+        if (response){
+            window.location.href = "/signin"
+        }
     };
 
     return (

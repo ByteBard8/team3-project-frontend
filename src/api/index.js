@@ -1,5 +1,6 @@
 import {SERVERURL} from '../helpers/consts.js'
 const URL = SERVERURL;
+
 async function signInAPI(email, password) {
     try {
       console.log(`${URL}/auth/signin`)
@@ -20,7 +21,28 @@ async function signInAPI(email, password) {
     } catch (error) {
       throw new Error('Failed to sign in');
     }
-  };
+  }
+
+  async function signUp(userData) {
+    try {
+      const response = await fetch(`${URL}/auth/signup`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Invalid credentials');
+      }
+  
+      const data = await response.json();
+      return data; 
+    } catch (error) {
+      throw new Error('Failed to sign in');
+    }
+  }
 
   async function getAllBooks() {
     const token = localStorage.getItem('token');
@@ -172,7 +194,7 @@ async function contactUs(email, name, message) {
   } catch (error) {
     throw new Error('Failed to sign in');
   }
-};
+}
 
 async function getAllBorrowings() {
   const token = localStorage.getItem('token');
@@ -192,7 +214,7 @@ async function getAllBorrowings() {
 } catch (error) {
   throw new Error('Network error');
 }
-};
+}
 
 async function getRandomBooks() {
   const token = localStorage.getItem('token');
@@ -225,5 +247,6 @@ export {signInAPI,
    updateBook,
    getAllBorrowings,
    getRandomBooks,
-   searchBooksByGenre
+   searchBooksByGenre,
+   signUp
   };
