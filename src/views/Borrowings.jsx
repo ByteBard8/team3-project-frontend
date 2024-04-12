@@ -5,9 +5,11 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Grid from "@mui/material/Grid";
+import Divider from '@mui/material/Divider';
 import lodash from "lodash";
 import React, { useEffect, useState } from "react";
 import { getAllBorrowings, returnBookAPI } from "../api/index.js";
+import Table from "../components/Table.jsx";
 
 const Borrowings = () => {
   const [current, setCurrent] = useState([]);
@@ -18,15 +20,15 @@ const Borrowings = () => {
       const res = await returnBookAPI(id);
 
       if (res.success) {
-        showAlert("Congratulations. You successfully returned this book.");
+        alert("Congratulations. You successfully returned this book.");
         setBorrowed(false);
         setError("");
       } else {
-        setError("Unable to return at this time");
+        alert("Unable to return at this time");
       }
     } catch (error) {
       console.log(error);
-      setError("Unable to return");
+      alert("Unable to return");
     }
   };
   useEffect(() => {
@@ -44,18 +46,19 @@ const Borrowings = () => {
     fetchData();
   }, []);
   return (
-    <Container>
+    <Box>
       <Typography variant="h2" sx={{ mb: 2, marginTop: 10 }} align="left">
         My Borrowings
       </Typography>
       <Box>
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h5" sx={{marginTop: "40px"}}>
           Active borrowings
         </Typography>
-        <Grid container rowSpacing={8} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        {current.length <=0 ?
+         <p>You have no active borrowings!</p> :
+        (<Grid container rowSpacing={8} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {current.map((item) => (
-            <>
-              <Grid item>
+              <Grid item key={`Grid${item._id}`}>
                 <Card>
                   <CardMedia
                     sx={{ height: 250 }}
@@ -86,31 +89,16 @@ const Borrowings = () => {
                   </CardActions>
                 </Card>
               </Grid>
-            </>
+            
           ))}
-        </Grid>
+        </Grid>)}
       </Box>
-      <Typography variant="h6" gutterBottom>
+        <Divider />
+      <Typography variant="h5" sx={{marginTop: "40px"}}>
         Past borrowings
       </Typography>
-      {past.map((item) => (
-        <Box
-          component="a"
-          key={`box-${item._id}`}
-          href={`/book/${item.bookId._id}`}
-        >
-          <Typography key={item._id}>
-            Book title: {item.bookId.title}
-          </Typography>
-          <Typography>
-            Borrowed: {new Date(item.borrowDate).toLocaleString()}
-          </Typography>
-          <Typography>
-            Returned: {new Date(item.returnDate).toLocaleString()}
-          </Typography>
-        </Box>
-      ))}
-    </Container>
+          {past.length <= 0 ? (<p>You have no past borrowings!</p>) : (  <Table rows={past}/>)}
+    </Box>
   );
 };
 

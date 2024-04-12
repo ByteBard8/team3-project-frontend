@@ -12,7 +12,7 @@ function App() {
     <Box sx={{ bgcolor: 'background.default' }}>
       <Router>
 
-      <Container sx={{ py: { xs: 8, sm: 16 } }}>
+      <Container style={{ display: 'flex', flex: 1, flexDirection: 'column', minHeight: '100vh', width: '100%' }} fixed disableGutters>
         <MainRouter />
         <DrawerAppBar />
           <Divider />
