@@ -50,7 +50,6 @@ export default function Book() {
    const fetchData = async () => {
       const data = await getBookByIDAPI(id);
       setItemData(data);
-
       data.available ? setBorrowed(false) : setBorrowed(true);
     }
     fetchData();

@@ -8,12 +8,11 @@ function App() {
 
   return (
     <Router>
-
-    <Container fixed disableGutters>
+    <Container style={{ display: 'flex', flex: 1, flexDirection: 'column', minHeight: '100vh', width: '100%' }} fixed disableGutters>
       <MainRouter />
     <DrawerAppBar />
-      <Footer />
     </Container>
+      <Footer />
     </Router>
   )
 }
