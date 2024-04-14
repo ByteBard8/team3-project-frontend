@@ -14,7 +14,9 @@ const EditBookForm = () => {
     genre: '',
     publication_year: '',
     quantity_available: '',
-    bookImageUrl: ''
+    bookImageUrl: '',
+    status: 'available',
+    available: true
   });
 
   const { bookId } = useParams(); // Get bookId from URL params

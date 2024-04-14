@@ -12,7 +12,9 @@ const AddBookForm = () => {
     genre: '',
     publication_year: '',
     quantity_available: '',
-    bookImageUrl: ''
+    bookImageUrl: '',
+    status: 'available',
+    available: true
   });
 
   const handleChange = (e) => {
