@@ -15,13 +15,16 @@ const Borrowings = () => {
   const [current, setCurrent] = useState([]);
   const [past, setPast] = useState([]);
   const [error, setError] = useState("");
-  const handleReturn = async (id) => {
+  const [refresh, setRefresh] = useState(true);
+  const handleReturn = async (item) => {
     try {
+      let id = item.bookId._id
       const res = await returnBookAPI(id);
 
       if (res.success) {
         alert("Congratulations. You successfully returned this book.");
-        setBorrowed(false);
+        lodash.remove(current, (obj) => lodash.isEqual(obj, item));
+        setRefresh(true);
         setError("");
       } else {
         alert("Unable to return at this time");
@@ -36,15 +39,17 @@ const Borrowings = () => {
       let data = await getAllBorrowings();
       const borrowerId = localStorage.getItem("userId");
       data = data.filter((elm) => elm.borrowerId._id === borrowerId);
-      const [pastBorrowings, currentBorrowings] = lodash.partition(
+      let [pastBorrowings, currentBorrowings] = lodash.partition(
         data,
         "returned"
       );
       setCurrent(currentBorrowings);
+      pastBorrowings = lodash.reverse(pastBorrowings)
       setPast(pastBorrowings);
+      setRefresh(false);
     };
-    fetchData();
-  }, []);
+    if (refresh) fetchData();
+  }, [refresh]);
   return (
     <Box>
       <Typography variant="h2" sx={{ mb: 2, marginTop: 10 }} align="left">
@@ -82,7 +87,7 @@ const Borrowings = () => {
                     </Button>
                     <Button
                       size="small"
-                      onClick={() => handleReturn(item.bookId._id)}
+                      onClick={() => handleReturn(item)}
                     >
                       Return Book
                     </Button>
