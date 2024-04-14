@@ -1,5 +1,4 @@
-import MenuIcon from '@mui/icons-material/Menu';
-import StoreIcon from '@mui/icons-material/Store';
+import * as React from 'react';
 import { Link } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -11,40 +10,61 @@ import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import * as React from 'react';
+import MenuIcon from '@mui/icons-material/Menu';
+import StoreIcon from '@mui/icons-material/Store';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import auth from '../helpers/auth.js';
 
 const drawerWidth = 240;
 const navItems = [
-  {title: 'Home', link: 'home'},
-  {title:'Books', link: 'books'},
-  {title: 'About Us', link: 'aboutus'},
-  {title: 'Contact Us', link: 'contact'},
-  {title: 'My Borrowings', link: 'borrowings'}
+  { title: 'Home', link: 'home' },
+  { title: 'Books', link: 'books' },
+  { title: 'About Us', link: 'aboutus' },
+  { title: 'Contact Us', link: 'contact' },
+  { title: 'My Borrowings', link: 'borrowings' }
 ];
 
+const adminDropdownItems = [
+  { title: "Books", link: 'admin/books' },
+  { title: "Authors", link: 'admin/authors' },
+  { title: "Users", link: 'admin/users' },
+  { title: "Borrowings", link: 'admin/borrowings' }
+];
 
-function DrawerAppBar(props) {
+function AdminDrawerAppBar(props) {
   const token = localStorage.getItem('token');
-  const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isLoggedIn, setIsLoggedIn] = React.useState();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+
+  const handleAdminMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleAdminMenuClose = () => {
+    setAnchorEl(null);
+  };
+
   React.useEffect(() => {
-    setIsLoggedIn(auth.isAuthenticated()); 
-   }, [isLoggedIn]);
+    setIsLoggedIn(auth.isAuthenticated());
+  }, [isLoggedIn]);
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <StoreIcon></StoreIcon>
+      <StoreIcon />
       <Typography variant="h6" sx={{ my: 2 }}>
         Silent Library
       </Typography>
       <Divider />
-      {isLoggedIn ? (<><List>
+      <List>
         {navItems.map((item, o) => (
           <ListItem key={o} disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
@@ -53,19 +73,24 @@ function DrawerAppBar(props) {
           </ListItem>
         ))}
       </List>
-      <Divider /></>) : null}
-
-      {token ? 
-            (<Button href="/signout" sx={{ color: 'white', position:'absolute', right: '0', }}>Sign Out</Button>) 
-            :
-            <Button href="/signin" sx={{ color: 'white', position:'absolute', right: '0', }}>
-                SIGN IN/SIGN UP
-              </Button>
-              }
+      <Divider />
+      <List>
+        <ListItem disablePadding>
+          <ListItemButton onClick={handleAdminMenuOpen} sx={{ textAlign: 'center' }}>
+            Admin
+          </ListItemButton>
+        </ListItem>
+      </List>
+      <Divider />
+      {token ? (
+        <Button href="/signout" sx={{ color: 'white', position: 'absolute', bottom: '20px', width: '100%' }}>Sign Out</Button>
+      ) : (
+        <Button href="/signin" sx={{ color: 'white', position: 'absolute', bottom: '20px', width: '100%' }}>
+          SIGN IN/SIGN UP
+        </Button>
+      )}
     </Box>
   );
-
-  const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -81,7 +106,7 @@ function DrawerAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
-          <StoreIcon></StoreIcon>
+          <StoreIcon />
           <Typography
             variant="h6"
             component="div"
@@ -89,31 +114,40 @@ function DrawerAppBar(props) {
           >
             Silent Library
           </Typography>
-          {isLoggedIn ? (<Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
-            {navItems.map((item, i) => (
-              <Button key={`link-${item.link}-${i}`} href={`/${item.link}`} sx={{ color: 'white' }}>
-                {item.title}
+          {isLoggedIn && (
+            <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
+              {navItems.map((item, i) => (
+                <Button key={`link-${item.link}-${i}`} href={`/${item.link}`} sx={{ color: 'white' }}>
+                  {item.title}
+                </Button>
+              ))}
+              <Button aria-controls="admin-menu" aria-haspopup="true" onClick={handleAdminMenuOpen} sx={{ color: 'white', ml: 2 }}>
+                Admin
               </Button>
-            ))}
-            {token ? 
-            (<Button href="/signout" sx={{ color: 'white', position:'absolute', right: '0', }}>Sign Out</Button>) 
-            :
-            <Button href="/signin" sx={{ color: 'white', position:'absolute', right: '0', }}>
-                SIGN IN/SIGN UP
-              </Button>
-              }
-            <Divider />
-          </Box>) : null}
+              <Menu
+                id="admin-menu"
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleAdminMenuClose}
+              >
+                {adminDropdownItems.map((item, index) => (
+                  <MenuItem key={index} onClick={handleAdminMenuClose}>
+                    <Link href={`/${item.link}`}>{item.title}</Link>
+                  </MenuItem>
+                ))}
+              </Menu>
+              <Divider />
+            </Box>
+          )}
         </Toolbar>
       </AppBar>
       <nav>
         <Drawer
-          container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, 
+            keepMounted: true,
           }}
           sx={{
             display: { xs: 'block', sm: 'none' },
@@ -123,10 +157,8 @@ function DrawerAppBar(props) {
           {drawer}
         </Drawer>
       </nav>
-
     </Box>
   );
 }
 
-
-export default DrawerAppBar;
+export default AdminDrawerAppBar;
