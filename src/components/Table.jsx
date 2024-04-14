@@ -5,12 +5,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { TableFooter, TablePagination, Typography } from '@mui/material';
 
 
 export default function BasicTable({rows}) {
     return (
       <TableContainer component={Paper}>
-        <Table  aria-label="simple table">
+        <Table  aria-label="simple table" >
           <TableHead>
             <TableRow>
               <TableCell align="center"><b>Title</b></TableCell>
@@ -34,6 +35,11 @@ export default function BasicTable({rows}) {
               </TableRow>
             ))}
           </TableBody>
+          <TableFooter>
+            <Typography>
+              Total <b>{rows.length}</b> borrow(s)
+            </Typography>
+          </TableFooter>
         </Table>
       </TableContainer>
     );
