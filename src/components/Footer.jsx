@@ -29,7 +29,7 @@ export default function Footer() {
                 <Grid item xs={12} sm={6} md={3}>
                     <Typography variant="h6" gutterBottom>About Us</Typography>
                     <Typography variant="body2">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    "Empowering Libraries, Enriching Communities: Your Ultimate Management Solution."
                     </Typography>
                 </Grid>
 
