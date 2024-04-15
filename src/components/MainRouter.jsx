@@ -21,6 +21,7 @@ import AddBook from '../views/admin/books/AddBook.jsx';
 import EditBookForm from '../views/admin/books/EditBook.jsx';
 import AuthorsIndex from '../views/admin/authors/Index.jsx';
 import UsersAdmin from '../views/admin/users/Index.jsx';
+import EditUser from '../views/admin/users/EditUser.jsx';
 import BorrowingsAdmin from '../views/admin/borrowings/Index.jsx';
 
 function MainRouter() {
@@ -80,6 +81,15 @@ return (
 					element={
 						<AdminRoute>
 							<UsersAdmin />
+						</AdminRoute>
+					}
+				/>
+			<Route
+				exact
+				path="/admin/users/edit/:userId"
+					element={
+						<AdminRoute>
+							<EditUser />
 						</AdminRoute>
 					}
 				/>
