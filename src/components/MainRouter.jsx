@@ -23,6 +23,9 @@ import AuthorsIndex from '../views/admin/authors/Index.jsx';
 import UsersAdmin from '../views/admin/users/Index.jsx';
 import EditUser from '../views/admin/users/EditUser.jsx';
 import BorrowingsAdmin from '../views/admin/borrowings/Index.jsx';
+import AuthorsAdmin from '../views/admin/authors/Index.jsx';
+import EditAuthor from '../views/admin/authors/EditAuthor.jsx';
+import AddAuthor from '../views/admin/authors/AddAuthor.jsx';
 
 function MainRouter() {
 
@@ -98,6 +101,31 @@ return (
 					element={
 						<AdminRoute>
 							<BorrowingsAdmin />
+						</AdminRoute>
+					}
+				/>
+			<Route
+			path="/admin/authors"
+				element={
+					<AdminRoute>
+						<AuthorsAdmin />
+					</AdminRoute>
+				}
+			/>
+			<Route
+			path="/admin/authors/add"
+				element={
+					<AdminRoute>
+						<AddAuthor />
+					</AdminRoute>
+				}
+			/>
+			<Route
+				exact
+				path="/admin/authors/edit/:authorId"
+					element={
+						<AdminRoute>
+							<EditAuthor />
 						</AdminRoute>
 					}
 				/>
