@@ -137,6 +137,13 @@ function AdminDrawerAppBar(props) {
                 ))}
               </Menu>
               <Divider />
+              {token ? 
+            (<Button href="/signout" sx={{ color: 'white', position:'absolute', right: '0', }}>Sign Out</Button>) 
+            :
+            <Button href="/signin" sx={{ color: 'white', position:'absolute', right: '0', }}>
+                SIGN IN/SIGN UP
+              </Button>
+              }
             </Box>
           )}
         </Toolbar>
