@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { getAllUsers } from '../../../api/useradmin'; 
 
 const UsersAdmin = () => {
@@ -48,9 +49,9 @@ const UsersAdmin = () => {
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.role}</TableCell>
 				<TableCell>
-				<Button onClick={() => handleEditUser(user._id)} variant="outlined" color="primary">
-				Edit
-				</Button>
+				<Button component={Link} to={`/admin/users/edit/${user._id}`} variant="outlined" color="primary">
+                    Edit
+                  </Button>
 				<Button onClick={() => handleDeleteUser(user._id)} variant="outlined" color="error" style={{ marginLeft: '0.5rem' }}>
 				Delete
 				</Button>
