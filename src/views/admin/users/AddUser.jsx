@@ -1,30 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { TextField, Button, Grid } from '@mui/material';
-import { getUserById, updateUser } from '../../../api/useradmin';
+import React, { useState } from 'react';
+import { TextField, Button, Grid, MenuItem } from '@mui/material';
+import { signUp } from '../../../api/index'; 
 
-const EditUserForm = () => {
-  const { userId } = useParams(); // Get the userId from URL params
+const AddUserForm = () => {
   const [userData, setUserData] = useState({
     name: '',
     email: '',
-    role: ''
+    role: '',
+    password: ''
   });
-
-  console.log(userId, 'userid')
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const user = await getUserById(userId); // Fetch user data by userId
-        setUserData(user);
-      } catch (error) {
-        console.error('Error fetching user:', error);
-      }
-    };
-
-    fetchUser();
-  }, [userId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,14 +18,19 @@ const EditUserForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await updateUser(userId, userData); // Update user data using API call
-      alert('User updated successfully!');
-      // Redirect to user list page or perform any other necessary action
-
+      await signUp(userData); // Call the signUp function to register a new user using the API
+      alert('User added successfully!');
+      // Reset the form fields after successful submission
+      setUserData({
+        name: '',
+        email: '',
+        role: '',
+        password: ''
+      });
       window.history.back(); // Go back to previous page
     } catch (error) {
-      console.error('Error updating user:', error);
-      alert('Failed to update user. Please try again.');
+      console.error('Error adding user:', error);
+      alert('Failed to add user. Please try again.');
     }
   };
 
@@ -69,15 +58,29 @@ const EditUserForm = () => {
         <Grid item xs={12}>
           <TextField
             fullWidth
+            select
             label="Role"
             name="role"
             value={userData.role}
+            onChange={handleChange}
+          >
+            <MenuItem value="admin">Admin</MenuItem>
+            <MenuItem value="user">User</MenuItem>
+          </TextField>
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            type="password"
+            label="Password"
+            name="password"
+            value={userData.password}
             onChange={handleChange}
           />
         </Grid>
         <Grid item xs={12}>
           <Button type="submit" variant="contained" color="primary">
-            Update User
+            Add User
           </Button>
         </Grid>
       </Grid>
@@ -85,4 +88,4 @@ const EditUserForm = () => {
   );
 };
 
-export default EditUserForm;
+export default AddUserForm;

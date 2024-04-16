@@ -22,6 +22,7 @@ import EditBookForm from '../views/admin/books/EditBook.jsx';
 import AuthorsIndex from '../views/admin/authors/Index.jsx';
 import UsersAdmin from '../views/admin/users/Index.jsx';
 import EditUser from '../views/admin/users/EditUser.jsx';
+import AddUser from '../views/admin/users/AddUser.jsx';
 import BorrowingsAdmin from '../views/admin/borrowings/Index.jsx';
 import AuthorsAdmin from '../views/admin/authors/Index.jsx';
 import EditAuthor from '../views/admin/authors/EditAuthor.jsx';
@@ -93,6 +94,15 @@ return (
 					element={
 						<AdminRoute>
 							<EditUser />
+						</AdminRoute>
+					}
+				/>
+			<Route
+				exact
+				path="/admin/users/add"
+					element={
+						<AdminRoute>
+							<AddUser />
 						</AdminRoute>
 					}
 				/>
