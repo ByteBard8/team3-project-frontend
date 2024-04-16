@@ -20,8 +20,7 @@ export default function SignUp() {
         // Create a JSON object from the form data
         const userData = {
             email: formData.email,
-            firstName: formData.firstName,
-            lastName: formData.lastName,
+            name: `${formData.firstName} ${formData.lastName}`,
             password: formData.password,
             confirmPassword: formData.confirmPassword,
             role: 'user'

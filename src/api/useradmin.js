@@ -62,8 +62,35 @@ async function updateUser(userId, userData) {
     }
   }
 
+
+  async function deleteUser(userId){
+    const token = localStorage.getItem('token');
+	const admin = localStorage.getItem('role');
+	if (admin != 'admin'){
+		alert('Not allowed to delete.');
+	}
+    try {
+      const response = await fetch(`${SERVERURL}/api/users/${userId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+      })
+      if (!response.ok) {
+        throw new Error('Response not ok');
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw new Error('Network error')
+    }
+  }
+
+
   export {
 	getAllUsers,
 	updateUser,
-	getUserById
+	getUserById,
+	deleteUser
   }
