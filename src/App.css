@@ -59,3 +59,7 @@
 #footer-wrap {
   background-color: gray;
 }
+
+#footer-wrap a{
+  color: #fff;
+}

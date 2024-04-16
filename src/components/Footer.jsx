@@ -54,10 +54,10 @@ export default function Footer() {
                         <Link href="#">Home</Link>
                     </Typography>
                     <Typography variant="body2">
-                        <Link href="#">Products</Link>
+                        <Link href="/contact">Contact</Link>
                     </Typography>
                     <Typography variant="body2">
-                        <Link href="#">Services</Link>
+                        <Link href="/aboutus">About</Link>
                     </Typography>
                 </Grid>
 
